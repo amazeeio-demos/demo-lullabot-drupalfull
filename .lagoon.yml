@@ -1,6 +1,6 @@
 docker-compose-yaml: docker-compose.yml
 
-project: drupal9-full
+project: demo-bree-drupalfull
 
 # The ssh and api settings are needed to configure Lagoon outside of amazeeio.cloud infrastructure
 # ssh: ssh.amazeeio.cloud:32222
@@ -14,6 +14,17 @@ tasks:
 #         service: cli
 
   post-rollout:
+    - run:
+        name: IF no Drupal installed and we are not main branch, sync from main branch
+        command: |
+            if tables=$(drush sqlq 'show tables;') && [ -z "$tables" ] && [[ "$LAGOON_GIT_BRANCH" != "main" ]]; then
+                # no drupal installed, sync DB from main branch
+                drush -y sql-sync @lagoon.demo-bree-drupalfull-main @self
+                drush -y rsync @lagoon.demo-bree-drupalfull-main:%files @self:%files
+                drush -y cr
+            fi
+        service: cli
+        shell: bash
     # Enable once config sync has been setup.
     # - run:
     #     name: drush cim

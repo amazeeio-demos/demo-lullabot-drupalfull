@@ -1,4 +1,4 @@
-name: drupal9-full
+name: demo-bree-drupalfull
 recipe: lagoon
 config:
   flavor: drupal

@@ -1,0 +1,23 @@
+uuid: 4d9a904f-6176-4b26-bc1a-44c1008cd00a
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.disclaimer_block
+    - field.storage.block_content.field_disclaimer
+  module:
+    - text
+_core:
+  default_config_hash: Tm5k1X3AqBqgUwpurHlz8z5tZt2zD3D-yrDmetd4HkA
+id: block_content.disclaimer_block.field_disclaimer
+field_name: field_disclaimer
+entity_type: block_content
+bundle: disclaimer_block
+label: Disclaimer
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

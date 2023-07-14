@@ -18,7 +18,7 @@ docker-compose down
 docker-compose build && docker-compose up -d
 
 # Ensure mariadb pod is ready to connect
-docker run --rm --net demo-bree-drupalfull_default amazeeio/dockerize dockerize -wait tcp://mariadb:3306 -timeout 1m
+docker run --rm --net demo-lullabot-drupalfull_default amazeeio/dockerize dockerize -wait tcp://mariadb:3306 -timeout 1m
 ```
 
 Verification commands
@@ -33,17 +33,17 @@ docker-compose exec -T cli bash -c "drush cr -y"
 docker-compose exec -T cli bash -c "drush status" | grep "Drupal bootstrap" | grep "Successful"
 
 # Should have all the services we expect
-docker ps --filter label=com.docker.compose.project=demo-bree-drupalfull | grep Up | grep demo-bree-drupalfull_nginx_1
-docker ps --filter label=com.docker.compose.project=demo-bree-drupalfull | grep Up | grep demo-bree-drupalfull_mariadb_1
-docker ps --filter label=com.docker.compose.project=demo-bree-drupalfull | grep Up | grep demo-bree-drupalfull_php_1
-docker ps --filter label=com.docker.compose.project=demo-bree-drupalfull | grep Up | grep demo-bree-drupalfull_cli_1
-docker ps --filter label=com.docker.compose.project=demo-bree-drupalfull | grep Up | grep demo-bree-drupalfull_solr_1
+docker ps --filter label=com.docker.compose.project=demo-lullabot-drupalfull | grep Up | grep demo-lullabot-drupalfull_nginx_1
+docker ps --filter label=com.docker.compose.project=demo-lullabot-drupalfull | grep Up | grep demo-lullabot-drupalfull_mariadb_1
+docker ps --filter label=com.docker.compose.project=demo-lullabot-drupalfull | grep Up | grep demo-lullabot-drupalfull_php_1
+docker ps --filter label=com.docker.compose.project=demo-lullabot-drupalfull | grep Up | grep demo-lullabot-drupalfull_cli_1
+docker ps --filter label=com.docker.compose.project=demo-lullabot-drupalfull | grep Up | grep demo-lullabot-drupalfull_solr_1
 
 # Should ssh against the cli container by default
 docker-compose exec -T cli bash -c "env | grep LAGOON=" | grep cli-drupal
 
 # Should have the correct environment set
-docker-compose exec -T cli bash -c "env" | grep LAGOON_ROUTE | grep demo-bree-drupalfull.docker.amazee.io
+docker-compose exec -T cli bash -c "env" | grep LAGOON_ROUTE | grep demo-lullabot-drupalfull.docker.amazee.io
 docker-compose exec -T cli bash -c "env" | grep LAGOON_ENVIRONMENT_TYPE | grep development
 
 # Should be running PHP 8

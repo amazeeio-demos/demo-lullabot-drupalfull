@@ -1,4 +1,4 @@
-name: demo-bree-drupalfull
+name: demo-lullabot-drupalfull
 recipe: lagoon
 config:
   flavor: drupal

@@ -234,7 +234,7 @@ $settings['hash_salt'] = hash('sha256', getenv('TUGBOAT_REPO_ID'));
  * directory in the public files path. The setting below allows you to set
  * its location.
  */
-# $settings['config_sync_directory'] = '/directory/outside/webroot';
+# $settings['config_sync_directory'] = getenv('TUGBOAT_ROOT') . '/config';
 
 /**
  * Settings:
@@ -263,7 +263,7 @@ $settings['hash_salt'] = hash('sha256', getenv('TUGBOAT_REPO_ID'));
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = '';
+//$settings['hash_salt'] = '';
 
 /**
  * Deployment identifier.

@@ -75,7 +75,7 @@
  * The next section describes how to customize the $databases array for more
  * specific needs.
  */
-<?php
+
 $databases['default']['default'] = array (
   'database' => 'tugboat',
   'username' => 'tugboat',

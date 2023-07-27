@@ -86,10 +86,10 @@ services:
       # and update steps, because the results of those are inherited
       # from the base preview.
       build:
-        - vendor/bin/drush cache:rebuild
-        - vendor/bin/drush config:import -y
-        - vendor/bin/drush updatedb -y
-        - vendor/bin/drush cache:rebuild
+#        - vendor/bin/drush cache:rebuild
+#        - vendor/bin/drush config:import -y
+#        - vendor/bin/drush updatedb -y
+#        - vendor/bin/drush cache:rebuild
 
   # This 'mysql' key acts as the hostname to access the service by from the php service.
   mysql:

@@ -25,10 +25,6 @@ services:
         # TODO: Not supported by FPM.
         #- a2enmod headers rewrite
 
-        # Link the document root to the expected path. This example links /web
-        # to the docroot.
-        - ln -snf "${TUGBOAT_ROOT}/web" "${DOCROOT}"
-
         # Create the Drupal private files and config directories if they aren't
         # already present.
         - mkdir -p "${TUGBOAT_ROOT}/files-private" "${TUGBOAT_ROOT}/config"
@@ -40,6 +36,10 @@ services:
       update:
         # Install/update packages managed by composer, including drush.
         - composer install --optimize-autoloader
+
+        # Link the document root to the expected path. This example links /web
+        # to the docroot.
+        - ln -snf "${TUGBOAT_ROOT}/web" "${DOCROOT}"
 
         # Use the tugboat-specific Drupal settings.
         - cp "${TUGBOAT_ROOT}/.tugboat/default.settings.php" "${DOCROOT}/sites/default/settings.local.php"

@@ -234,7 +234,7 @@ $settings['hash_salt'] = hash('sha256', getenv('TUGBOAT_REPO_ID'));
  * directory in the public files path. The setting below allows you to set
  * its location.
  */
-# $settings['config_sync_directory'] = getenv('TUGBOAT_ROOT') . '/config';
+$settings['config_sync_directory'] = getenv('TUGBOAT_ROOT') . '/config';
 
 /**
  * Settings:
@@ -505,7 +505,7 @@ $settings['update_free_access'] = FALSE;
  * must exist and be writable by Drupal. This directory must be relative to
  * the Drupal installation directory and be accessible over the web.
  */
-# $settings['file_public_path'] = 'sites/default/files';
+$settings['file_public_path'] = 'sites/default/files';
 
 /**
  * Additional public file schemes:
@@ -562,7 +562,7 @@ $settings['update_free_access'] = FALSE;
  * See https://www.drupal.org/documentation/modules/file for more information
  * about securing private files.
  */
-# $settings['file_private_path'] = '';
+$settings['file_private_path'] = getenv('TUGBOAT_ROOT') . '/files-private';
 
 /**
  * Temporary file path:

@@ -4,6 +4,9 @@ services:
     # image: uselagoon/php-8.1-cli-drupal:latest
     image: tugboatqa/php:8.1-apache
     checkout: true
+    commands:
+      init:
+        - composer install --optimize-autoloader
 
   nginx:
     # image: uselagoon/nginx-drupal:latest
@@ -14,10 +17,8 @@ services:
       init:
         - echo "alias ll='ls -la'" >> /root/.bashrc
         - echo "export PATH=$PATH:${TUGBOAT_ROOT}/vendor/bin" >> /root/.bashrc
-        - docker-php-ext-install opcache
         - mkdir -p "${TUGBOAT_ROOT}/files-private" "${TUGBOAT_ROOT}/config"
       update:
-        - composer install --optimize-autoloader
         - ln -snf "${TUGBOAT_ROOT}/web" "${DOCROOT}"
         - cp "${TUGBOAT_ROOT}/.tugboat/default.settings.php" "${DOCROOT}/sites/default/settings.local.php"
         - ln -snf "${TUGBOAT_ROOT}/files-private" "${DOCROOT}/../files-private"
@@ -31,6 +32,9 @@ services:
     image: tugboatqa/php:8.1-fpm
     default: true
     depends: [cli,nginx,mariadb]
+    commands:
+      init:
+        - docker-php-ext-install opcache
 
   mariadb:
     # image: uselagoon/mariadb-10.6-drupal:latest

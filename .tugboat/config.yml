@@ -30,6 +30,8 @@ services:
       update:
         # Create the necessary private directories outside the webroot.
         - mkdir -p "${TUGBOAT_ROOT}/files-private" "${TUGBOAT_ROOT}/config"
+        - chgrp -R www-data "${TUGBOAT_ROOT}/files-private"
+        - chmod -R 664 "${TUGBOAT_ROOT}/files-private"
 
         # Install/update packages managed by composer, including drush.
         - composer install --optimize-autoloader
@@ -41,12 +43,22 @@ services:
         # Use the tugboat-specific Drupal settings.
         - cp "${TUGBOAT_ROOT}/.tugboat/settings.tugboat.php" "${DOCROOT}/sites/default/settings.local.php"
 
-        # We've defined the location of 'files-private' and 'config' in the settings file in the .tugboat folder, but
-        # you can alternatively symlink them here with your custom code.
-        #- ln -snf "${TUGBOAT_ROOT}/files-private" "${DOCROOT}/sites/default/files-private"
-        #- ln -snf "${TUGBOAT_ROOT}/config" "${DOCROOT}/sites/default/config"
+        # Symlink your custom code into Drupal's installation.
         #- ln -snf "${TUGBOAT_ROOT}/custom/themes" "${DOCROOT}/themes/custom"
         #- ln -snf "${TUGBOAT_ROOT}/custom/modules" "${DOCROOT}/modules/custom"
+
+        # Import files from a remote source.
+        #- scp user@example.com:files.tgz /tmp/files.tgz
+        #- tar -xvzf /tmp/files.tgz
+        #- mv /tmp/files "${DOCROOT}/sites/default/"
+
+        # Alternatively, import files from a tarball we added to the repo.
+        - rm -rf "${DOCROOT}/sites/default/files"
+        - tar -xvzf files.tgz
+        - mv files "${DOCROOT}/sites/default/"
+
+        # Another alternative: configure Stage File Proxy to link to a remote file source.
+        # Ideally this would be done in your settings.tugboat.php file.
 
         # Set file permissions such that Drupal will not complain.
         - mkdir -p "${DOCROOT}/sites/default/files"
@@ -57,16 +69,19 @@ services:
       # The BUILD phase is for running scripts to build and prepare your website.
       build:
         # Run the drush commands needed for a site with an imported database.
-        #- vendor/bin/drush cache:rebuild
-        #- vendor/bin/drush config:import -y
-        #- vendor/bin/drush updatedb -y
-        #- vendor/bin/drush cache:rebuild
+        - vendor/bin/drush cache:rebuild
+        - vendor/bin/drush config:import -y
+        - vendor/bin/drush updatedb -y
+        - vendor/bin/drush cache:rebuild
 
 
   # Define our database.
   database:
     #image: uselagoon/mariadb-10.6-drupal:latest
     image: tugboatqa/mariadb:10.6
+
+    # Checkout the codebase so we have access to the database dump file we added for the demo.
+    checkout: true
 
     # Run the commands to build out and install our database.
     commands:
@@ -84,6 +99,9 @@ services:
         #- scp user@example.com:database.sql.gz /tmp/database.sql.gz
         #- zcat /tmp/database.sql.gz | mysql tugboat
         #- rm /tmp/database.sql.gz
+
+        # Alternatively, use a dummy database from this repo.
+        - zcat ${TUGBOAT_ROOT}/sqldump.sql.gz | mysql tugboat
 
   # Define our search engine.
   solr:

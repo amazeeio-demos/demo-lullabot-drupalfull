@@ -70,9 +70,9 @@ services:
       build:
         # Run the drush commands needed for a site with an imported database.
         - vendor/bin/drush cache:rebuild
-        - vendor/bin/drush config:import -y
-        - vendor/bin/drush updatedb -y
-        - vendor/bin/drush cache:rebuild
+#        - vendor/bin/drush config:import -y
+#        - vendor/bin/drush updatedb -y
+#        - vendor/bin/drush cache:rebuild
 
 
   # Define our database.

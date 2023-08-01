@@ -1,4 +1,4 @@
-uuid: 195e4668-f442-4c69-8151-7dbede2728dd
+uuid: 35c8dc78-89f8-45ca-be4a-8cb42633ca73
 langcode: en
 status: true
 dependencies: {  }
@@ -7,7 +7,7 @@ _core:
 id: feedback
 label: 'Website feedback'
 recipients:
-  - admin@example.com
+  - support@tugboatqa.com
 reply: ''
 weight: 0
 message: 'Your message has been sent.'

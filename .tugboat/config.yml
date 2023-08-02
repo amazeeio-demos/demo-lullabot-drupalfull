@@ -98,12 +98,12 @@ services:
         - chmod +x /usr/local/bin/lagoon
 
         # Create the ~/.lagoon.yml file and configure lagoon.
-        - touch /root/.lagoon.yml
-        - lagoon config add --graphql https://api.amazeeio.cloud/graphql
-        - lagoon config add --ui https://dashboard.amazeeio.cloud/projects/demo-lullabot-drupalfull
-        - lagoon config add --hostname ssh.amazeeio.cloud:32222
-        - lagoon config add --lagoon demo-lullabot-drupalfull
-        - lagoon config add --port 22
+        - lagoon config add --lagoon demo-lullabot-drupalfull \
+          --graphql api.amazeeio.cloud \
+          --hostname ssh.amazeeio.cloud \
+          --port 22 \
+          --ui dashboard.amazeeio.cloud/projects/demo-lullabot-drupalfull
+
         - lagoon config default --lagoon demo-lullabot-drupalfull
 
       # The UPDATE phase downloads and installs and assets, libraries, and dependencies.

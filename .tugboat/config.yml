@@ -98,7 +98,6 @@ services:
         - chmod +x /usr/local/bin/lagoon
 
         # Create the ~/.lagoon.yml file and configure lagoon.
-        - lagoon -y
         - lagoon config add --graphql https://api.amazeeio.cloud/graphql
         - lagoon config add --ui https://dashboard.amazeeio.cloud/projects/demo-lullabot-drupalfull
         - lagoon config add --hostname ssh.amazeeio.cloud:32222

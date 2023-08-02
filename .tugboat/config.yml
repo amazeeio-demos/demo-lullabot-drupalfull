@@ -93,6 +93,19 @@ services:
         # Ensure this packet size persists even if MySQL restarts.
         - echo "max_allowed_packet=536870912" >> /etc/mysql/conf.d/tugboat.cnf
 
+        # Install the Lagoon CLI.
+        - curl -L "https://github.com/uselagoon/lagoon-cli/releases/download/v0.18.1/lagoon-cli-v0.18.1-linux-amd64" -o /usr/local/bin/lagoon
+        - chmod +x /usr/local/bin/lagoon
+
+        # Create the ~/.lagoon.yml file and configure lagoon.
+        - lagoon -y
+        - lagoon config add --graphql https://api.amazeeio.cloud/graphql
+        - lagoon config add --ui https://dashboard.amazeeio.cloud/projects/demo-lullabot-drupalfull
+        - lagoon config add --hostname ssh.amazeeio.cloud:32222
+        - lagoon config add --lagoon demo-lullabot-drupalfull
+        - lagoon config add --port 22
+        - lagoon config default --lagoon demo-lullabot-drupalfull
+
       # The UPDATE phase downloads and installs and assets, libraries, and dependencies.
       update:
         # Fetch a remote database and install it.

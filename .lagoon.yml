@@ -2,9 +2,31 @@ docker-compose-yaml: docker-compose.yml
 
 project: demo-lullabot-drupalfull
 
-# The ssh and api settings are needed to configure Lagoon outside of amazeeio.cloud infrastructure
-# ssh: ssh.amazeeio.cloud:32222
-# api: https://api.amazeeio.cloud/graphql
+demo-lullabot-drupalfull:
+  graphql: https://api.lagoon.amazeeio.cloud/graphql
+  hostname: ssh.lagoon.amazeeio.cloud
+  ui: https://dashboard.amazeeio.cloud
+  kibana: ""
+  port: "32222"
+  token: eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI4VmRfMEFxaEtLZHJqX3hBZm9qdGpVcUI5TFU0eXpoZGFzT2VYcFE5d3hBIn0.eyJleHAiOjE2OTEwNDUxMjUsImlhdCI6MTY5MTAwOTEyNSwianRpIjoiZTA1MjRiZDEtNTMzYi00YWNkLTlkYmMtMjI4ZGE3ZGRmNDVmIiwiaXNzIjoiaHR0cDovL2xhZ29vbi1jb3JlLWtleWNsb2FrOjgwODAvYXV0aC9yZWFsbXMvbGFnb29uIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImMzOWExZDRjLWI0YjEtNDJkMS1hMmU4LWYwZjRiOWU4N2U5YyIsInR5cCI6IkJlYXJlciIsImF6cCI6ImF1dGgtc2VydmVyIiwic2Vzc2lvbl9zdGF0ZSI6IjRjNTMxZTNkLTgyZGMtNDlhYS1iMjlkLWMxMGZiNjUxYjA3ZCIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib3duZXIiLCJvZmZsaW5lX2FjY2VzcyIsInJlcG9ydGVyIiwiZ3Vlc3QiLCJkZXZlbG9wZXIiLCJkZWZhdWx0LXJvbGVzLWxhZ29vbiIsInVtYV9hdXRob3JpemF0aW9uIiwibWFpbnRhaW5lciJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjRjNTMxZTNkLTgyZGMtNDlhYS1iMjlkLWMxMGZiNjUxYjA3ZCIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6IkNocmlzIEFsYnJlY2h0IiwicHJlZmVycmVkX3VzZXJuYW1lIjoiY2hyaXMuYWxicmVjaHRAbHVsbGFib3QuY29tIiwiZ2l2ZW5fbmFtZSI6IkNocmlzIiwiZmFtaWx5X25hbWUiOiJBbGJyZWNodCIsImVtYWlsIjoiY2hyaXMuYWxicmVjaHRAbHVsbGFib3QuY29tIn0.N5GHXoE3Erqgi7YjZmvILsFuY8--00sN1QQtp6q1hwOTevge_QOmHOAqvCYBr3YPwnpJbIlAoFhww1xZunRwMETy3pr1MPcTq_caQgue8j5yfw2ErPtgc_66hZ2s4Jz4U5rtzuQKhQVlOQroDOLublnNEUoRlIBL7grje8IzBrRCbyModxJUz4-5KaEV3YNb82ouQH6x37btG3b3Du_IO_0jjyQ1ZQFSpQB_SE-AC-hKICNfHdpKefGtfd5ht81C3gtR7Z0iDwdLRbCjlMFs-MUOJdw8fCHG6wwsYdkQ4aX4RXxlmUGf_kW4_tLmscEcFtxQgWHo0IcEAfZKV8I04Q
+  version: v2.15.4
+  sshkey: ""
+  sshportal: false
+
+lagoon-sync:
+  mariadb:
+    config:
+      hostname: database
+      username: tugboat
+      password: tugboat
+      port: 3306
+      database: tugboat
+  files:
+    config:
+      sync-directory: "./web/sites/default/files"
+  drupalconfig:
+    config:
+      syncpath: "./config/sync"
 
 tasks:
 #   pre-rollout:

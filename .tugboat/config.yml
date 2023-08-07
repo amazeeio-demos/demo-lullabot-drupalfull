@@ -92,9 +92,6 @@ services:
     #image: uselagoon/mariadb-10.6-drupal:latest
     image: tugboatqa/mariadb:10.6
 
-    # Checkout the codebase so we have access to the database dump file we added for the demo.
-    checkout: true
-
     # Run the commands to build out and install our database.
     commands:
       # The INIT phase initializes the server.

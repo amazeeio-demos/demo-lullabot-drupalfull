@@ -1,9 +1,9 @@
 _core:
   default_config_hash: VDJxTZtQR21qB4lvOq8zszJZLvLKrSPQpdn2E3T71Ww
 langcode: en
-uuid: 8ce8bda7-c373-4144-86c9-868be2142330
-name: 'Tugboat Lagoon'
-mail: support@tugboatqa.com
+uuid: dc5a8325-344e-4285-bf3e-e6ce42fee531
+name: 'Drush Site-Install'
+mail: admin@example.com
 slogan: ''
 page:
   403: ''

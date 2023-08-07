@@ -2,17 +2,6 @@ docker-compose-yaml: docker-compose.yml
 
 project: demo-lullabot-drupalfull
 
-demo-lullabot-drupalfull:
-  graphql: https://api.lagoon.amazeeio.cloud/graphql
-  hostname: ssh.lagoon.amazeeio.cloud
-  ui: https://dashboard.amazeeio.cloud
-  kibana: ""
-  port: "32222"
-  token: ""
-  version: v2.15.4
-  sshkey: ""
-  sshportal: false
-
 lagoon-sync:
   mariadb:
     config:

@@ -94,17 +94,17 @@ services:
         - echo "max_allowed_packet=536870912" >> /etc/mysql/conf.d/tugboat.cnf
 
         # Install the Lagoon CLI.
-        - curl -L "https://github.com/uselagoon/lagoon-cli/releases/download/v0.18.1/lagoon-cli-v0.18.1-linux-amd64" -o /usr/local/bin/lagoon
-        - chmod +x /usr/local/bin/lagoon
+#        - curl -L "https://github.com/uselagoon/lagoon-cli/releases/download/v0.18.1/lagoon-cli-v0.18.1-linux-amd64" -o /usr/local/bin/lagoon
+#        - chmod +x /usr/local/bin/lagoon
 
         # Create the ~/.lagoon.yml file, configure Lagoon, and authenticate.
-        - lagoon config add --force --lagoon "${LAGOON_PROJECT_NAME}" --graphql https://api.lagoon.amazeeio.cloud/graphql --hostname ssh.lagoon.amazeeio.cloud --port 32222 --ui https://dashboard.amazeeio.cloud
-        - lagoon config default --lagoon "${LAGOON_PROJECT_NAME}"
-        - lagoon login
+#        - lagoon config add --force --lagoon "${LAGOON_PROJECT_NAME}" --graphql https://api.lagoon.amazeeio.cloud/graphql --hostname ssh.lagoon.amazeeio.cloud --port 32222 --ui https://dashboard.amazeeio.cloud
+#        - lagoon config default --lagoon "${LAGOON_PROJECT_NAME}"
+#        - lagoon login
 
         # Install Lagoon Sync so we can fetch a database.
         - DOWNLOAD_PATH=$(curl -sL "https://api.github.com/repos/uselagoon/lagoon-sync/releases/latest" | grep "browser_download_url" | cut -d \" -f 4 | grep linux_amd64) && wget -O /usr/local/bin/lagoon-sync $DOWNLOAD_PATH && chmod a+x /usr/local/bin/lagoon-sync
-        - lagoon-sync sync mariadb -e "${LAGOON_PROD_ENV}" --no-interaction
+        - lagoon-sync sync mariadb -e "${LAGOON_PROD_ENV}" -i "/root/.ssh/id_rsa" --no-interaction --debug
 
       # The UPDATE phase downloads and installs and assets, libraries, and dependencies.
       update:
@@ -114,7 +114,7 @@ services:
         #- rm /tmp/database.sql.gz
 
         # Alternatively, use a dummy database from this repo.
-        - zcat ${TUGBOAT_ROOT}/sqldump.sql.gz | mysql tugboat
+        #- zcat ${TUGBOAT_ROOT}/sqldump.sql.gz | mysql tugboat
 
   # Define our search engine.
   solr:

@@ -23,7 +23,6 @@ services:
         - echo "export PATH=$PATH:${TUGBOAT_ROOT}/vendor/bin" >> /root/.bashrc
 
         # Install opcache.
-        # @TODO: Is this needed on FPM or if we're running REDIS?
         - docker-php-ext-install opcache
 
         # Install Lagoon Sync so we can fetch the files.
@@ -69,7 +68,6 @@ services:
 #        - lagoon-sync sync files -e "${LAGOON_ENV}" --no-interaction
 
         # Another alternative: configure Stage File Proxy to link to a remote file source.
-        - vendor/bin/drush -r "${DOCROOT}" pm-download stage_file_proxy
         - vendor/bin/drush -r "${DOCROOT}" pm-enable --yes stage_file_proxy
         - vendor/bin/drush -r "${DOCROOT}" variable-set stage_file_proxy_origin "${LAGOON_ENV_URL}"
 

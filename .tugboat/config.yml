@@ -71,7 +71,6 @@ services:
         - mkdir -p "${DOCROOT}/sites/default/files/translations"
         - vendor/bin/drush -r "${DOCROOT}" install --yes stage_file_proxy
         - vendor/bin/drush -r "${DOCROOT}" pm-enable --yes stage_file_proxy
-        - vendor/bin/drush -r "${DOCROOT}" variable-set stage_file_proxy_origin "${LAGOON_ENV_URL}"
 
       # The BUILD phase is for running scripts to build and prepare your website.
       build:

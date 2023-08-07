@@ -65,8 +65,8 @@ services:
         # Import files from Lagoon.
         # Due to Lagoon's config, we need to match the destination path to the source path.
         - mkdir -p /app/web/sites/default/files
-        - ln -sf /app/web/sites/default/files "${DOCROOT}/sites/default/files"
-        - lagoon-sync sync files -e "${LAGOON_ENV}" -i "/root/.ssh/id_rsa" --no-interaction
+        - ln -snf /app/web/sites/default/files "${DOCROOT}/sites/default/files"
+        - lagoon-sync sync files -e "${LAGOON_ENV}" --no-interaction
 
         # Set file permissions such that Drupal will not complain.
         - chgrp -R www-data "${DOCROOT}/sites/default/files"
@@ -125,7 +125,7 @@ services:
       update:
         # Fetch the database from Lagoon and import it.
         # @TODO: Change this to rsync a pre-dumped file so we're not dumping the database on every build.
-        - lagoon-sync sync mariadb -e "${LAGOON_ENV}" -i "/root/.ssh/id_rsa" --skip-target-cleanup=true --skip-target-import=true --no-interaction
+        - lagoon-sync sync mariadb -e "${LAGOON_ENV}" --skip-target-cleanup=true --skip-target-import=true --no-interaction
         - zcat /tmp/lagoon_sync_mariadb_*.sql.gz | mysql tugboat
         - rm /tmp/lagoon_sync_mariadb_*.sql.gz
 

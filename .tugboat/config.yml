@@ -83,9 +83,10 @@ services:
         - vendor/bin/drush updatedb -y
         - vendor/bin/drush cache:rebuild
 
-        # File Sync Alternative: Enable Stage File Proxy (settings are in settings.tugboat.php)
+        # File Sync Alternative: Enable Stage File Proxy.
         # This must be enabled after the config sync, otherwise Drupal will disable it when it runs the config sync.
         - vendor/bin/drush -r "${DOCROOT}" pm-enable --yes stage_file_proxy
+        - vendor/bin/drush -r "${DOCROOT}" config:set stage_file_proxy.settings origin "${LAGOON_ENV_URL}"
         - vendor/bin/drush cache:rebuild
 
   # Define our database service.

@@ -24,6 +24,5 @@ $settings['file_public_path'] = 'sites/default/files';
 $settings['file_private_path'] = getenv('TUGBOAT_ROOT') . '/files-private';
 
 // Set this to the public URL for the environment you want to sync file assets from.
-$config['stage_file_proxy.settings']['origin'] = 'https://nginx.main.demo-lullabot-drupalfull.us2.amazee.io';
 $config['stage_file_proxy.settings']['use_imagecache_root'] = TRUE;
 $config['stage_file_proxy.settings']['hotlink'] = FALSE;

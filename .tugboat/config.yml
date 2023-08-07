@@ -43,11 +43,11 @@ services:
       # The UPDATE phase is for importing assets and dependencies.
       update:
         # Create the necessary private directories outside the webroot. (see settings.tugboat.php)
-        - mkdir -p "${TUGBOAT_ROOT}/files-private" "${TUGBOAT_ROOT}/config"
+        - mkdir -p "${TUGBOAT_ROOT}/files-private"
         - chgrp -R www-data "${TUGBOAT_ROOT}/files-private"
         - chmod -R 664 "${TUGBOAT_ROOT}/files-private"
 
-        # Install/update packages managed by composer, including drush.
+        # Install/update packages managed by composer, including Drupal and Drush.
         - composer install --optimize-autoloader
 
         # Link the document root to the expected path. This example links /web
@@ -55,14 +55,14 @@ services:
         - ln -snf "${TUGBOAT_ROOT}/web" "${DOCROOT}"
 
         # Use the tugboat-specific Drupal settings.
-        - cp "${TUGBOAT_ROOT}/.tugboat/settings.tugboat.php" "${DOCROOT}/sites/default/settings.local.php"
+        - ln -snf "${TUGBOAT_ROOT}/.tugboat/settings.tugboat.php" "${DOCROOT}/sites/default/settings.local.php"
 
         # Symlink your custom code into Drupal's installation.
         #- ln -snf "${TUGBOAT_ROOT}/custom/themes" "${DOCROOT}/themes/custom"
         #- ln -snf "${TUGBOAT_ROOT}/custom/modules" "${DOCROOT}/modules/custom"
 
         # Set public file permissions such that Drupal will not complain.
-        # A translations file is needed to enable SFP.
+        # A translations folder is needed to enable Stage File Proxy.
         - mkdir -p "${DOCROOT}/sites/default/files/translations"
         - chgrp -R www-data "${DOCROOT}/sites/default/files"
         - find "${DOCROOT}/sites/default/files" -type d -exec chmod 2775 {} \;
@@ -70,10 +70,10 @@ services:
 
         # Import files from Lagoon.
         # Due to Lagoon's config, we need to match the destination path to the source path.
-        # Alternatively, you can comment this out and enable Stage File Proxy in the 'build' phase.
-#        - mkdir -p /app/web/sites/default/files
-#        - ln -snf /app/web/sites/default/files "${DOCROOT}/sites/default/files"
-#        - lagoon-sync sync files -e "${LAGOON_ENV}" --no-interaction
+        # Alternatively, you can comment this out and enable Stage File Proxy in the 'build' phase below.
+        #- mkdir -p /app/web/sites/default/files
+        #- ln -snf /app/web/sites/default/files "${DOCROOT}/sites/default/files"
+        #- lagoon-sync sync files -e "${LAGOON_ENV}" --no-interaction
 
       # The BUILD phase is for running scripts to build and prepare your website.
       build:
@@ -86,7 +86,7 @@ services:
         # File Sync Alternative: Enable Stage File Proxy (settings are in settings.tugboat.php)
         # This must be enabled after the config sync, otherwise Drupal will disable it when it runs the config sync.
         - vendor/bin/drush -r "${DOCROOT}" pm-enable --yes stage_file_proxy
-
+        - vendor/bin/drush cache:rebuild
 
   # Define our database service.
   database:

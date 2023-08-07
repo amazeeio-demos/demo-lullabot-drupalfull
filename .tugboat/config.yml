@@ -68,7 +68,7 @@ services:
 #        - lagoon-sync sync files -e "${LAGOON_ENV}" --no-interaction
 
         # Another alternative: configure Stage File Proxy to link to a remote file source.
-        - mkdir -p "${DOCROOT}/sites/default/files"
+        - mkdir -p "${DOCROOT}/sites/default/files/translations"
         - vendor/bin/drush -r "${DOCROOT}" install --yes stage_file_proxy
         - vendor/bin/drush -r "${DOCROOT}" pm-enable --yes stage_file_proxy
         - vendor/bin/drush -r "${DOCROOT}" variable-set stage_file_proxy_origin "${LAGOON_ENV_URL}"

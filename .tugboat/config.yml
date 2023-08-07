@@ -43,7 +43,7 @@ services:
 
       # The UPDATE phase is for importing assets and dependencies.
       update:
-        # Create the necessary private directories outside the webroot.
+        # Create the necessary private directories outside the webroot. (see settings.tugboat.php)
         - mkdir -p "${TUGBOAT_ROOT}/files-private" "${TUGBOAT_ROOT}/config"
         - chgrp -R www-data "${TUGBOAT_ROOT}/files-private"
         - chmod -R 664 "${TUGBOAT_ROOT}/files-private"
@@ -64,29 +64,14 @@ services:
 
         # Import files from Lagoon.
         # Due to Lagoon's config, we need to match the destination path to the source path.
-        - mkdir -p /app/web/sites/default/files
-        - ln -snf /app/web/sites/default/files "${DOCROOT}/sites/default/files"
-        - lagoon-sync sync files -e "${LAGOON_ENV}" --no-interaction
-
-        # Set file permissions such that Drupal will not complain.
-        - chgrp -R www-data "${DOCROOT}/sites/default/files"
-        - find "${DOCROOT}/sites/default/files" -type d -exec chmod 2775 {} \;
-        - find "${DOCROOT}/sites/default/files" -type f -exec chmod 0664 {} \;
-
-        #- scp user@example.com:files.tgz /tmp/files.tgz
-        #- tar -xvzf /tmp/files.tgz
-        #- mv /tmp/files "${DOCROOT}/sites/default/"
-
-        # Alternatively, import files from a tarball we added to the repo.
-#        - rm -rf "${DOCROOT}/sites/default/files"
-#        - tar -xvzf files.tgz
-#        - mv files "${DOCROOT}/sites/default/"
+#        - mkdir -p /app/web/sites/default/files
+#        - ln -snf /app/web/sites/default/files "${DOCROOT}/sites/default/files"
+#        - lagoon-sync sync files -e "${LAGOON_ENV}" --no-interaction
 
         # Another alternative: configure Stage File Proxy to link to a remote file source.
-        # Ideally this would be done in your settings.tugboat.php file.
-        #- vendor/bin/drush -r "${DOCROOT}" pm-download stage_file_proxy
-        #- vendor/bin/drush -r "${DOCROOT}" pm-enable --yes stage_file_proxy
-        #- vendor/bin/drush -r "${DOCROOT}" variable-set stage_file_proxy_origin "${LAGOON_ENV_URL}"
+        - vendor/bin/drush -r "${DOCROOT}" pm-download stage_file_proxy
+        - vendor/bin/drush -r "${DOCROOT}" pm-enable --yes stage_file_proxy
+        - vendor/bin/drush -r "${DOCROOT}" variable-set stage_file_proxy_origin "${LAGOON_ENV_URL}"
 
       # The BUILD phase is for running scripts to build and prepare your website.
       build:

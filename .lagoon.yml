@@ -2,9 +2,21 @@ docker-compose-yaml: docker-compose.yml
 
 project: demo-lullabot-drupalfull
 
-# The ssh and api settings are needed to configure Lagoon outside of amazeeio.cloud infrastructure
-# ssh: ssh.amazeeio.cloud:32222
-# api: https://api.amazeeio.cloud/graphql
+# https://github.com/uselagoon/lagoon-sync/tree/v0.7.1
+lagoon-sync:
+  mariadb:
+    config:
+      hostname: "${MARIADB_HOST:-mariadb}"
+      username: "${MARIADB_USERNAME:-drupal}"
+      password: "${MARIADB_PASSWORD:-drupal}"
+      port: "${MARIADB_PORT:-3306}"
+      database: "${MARIADB_DATABASE:-drupal}"
+  files:
+    config:
+      sync-directory: "/app/web/sites/default/files"
+  drupalconfig:
+    config:
+      syncpath: "./config/sync"
 
 tasks:
 #   pre-rollout:

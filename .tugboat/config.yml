@@ -117,12 +117,12 @@ services:
         #- zcat ${TUGBOAT_ROOT}/sqldump.sql.gz | mysql tugboat
 
   # Define our search engine.
-  solr:
+  #solr:
     #image: uselagoon/solr-8-drupal:latest
-    image: tugboatqa/solr:8
+    #image: tugboatqa/solr:8
 
 
   # Define our caching service.
-  redis:
+  #redis:
     #image: uselagoon/redis-6:latest
-    image: tugboatqa/redis:6
+    #image: tugboatqa/redis:6

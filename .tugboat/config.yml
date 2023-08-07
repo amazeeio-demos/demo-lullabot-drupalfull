@@ -89,6 +89,10 @@ services:
         - vendor/bin/drush -r "${DOCROOT}" config:set stage_file_proxy.settings origin "${LAGOON_ENV_URL}"
         - vendor/bin/drush cache:rebuild
 
+    # Load up some visual diffs and lighthouse reports.
+    urls:
+      - /
+
   # Define our database service.
   database:
     #image: uselagoon/mariadb-10.6-drupal:latest

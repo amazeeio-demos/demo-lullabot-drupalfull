@@ -2,20 +2,20 @@ docker-compose-yaml: docker-compose.yml
 
 project: demo-lullabot-drupalfull
 
-lagoon-sync:
-  mariadb:
-    config:
-      hostname: database
-      username: tugboat
-      password: tugboat
-      port: 3306
-      database: tugboat
-  files:
-    config:
-      sync-directory: "./web/sites/default/files"
-  drupalconfig:
-    config:
-      syncpath: "./config/sync"
+#lagoon-sync:
+#  mariadb:
+#    config:
+#      hostname: database
+#      username: tugboat
+#      password: tugboat
+#      port: 3306
+#      database: tugboat
+#  files:
+#    config:
+#      sync-directory: "./web/sites/default/files"
+#  drupalconfig:
+#    config:
+#      syncpath: "./config/sync"
 
 tasks:
 #   pre-rollout:

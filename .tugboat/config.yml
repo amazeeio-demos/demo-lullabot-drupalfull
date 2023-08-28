@@ -122,12 +122,12 @@ services:
         - rm /tmp/lagoon_sync_mariadb_*.sql.gz
 
   # Define our search engine.
-  #solr:
+  solr:
     #image: uselagoon/solr-8-drupal:latest
-    #image: tugboatqa/solr:8
+    image: tugboatqa/solr:8
 
 
   # Define our caching service.
-  #redis:
+  redis:
     #image: uselagoon/redis-6:latest
-    #image: tugboatqa/redis:6
+    image: tugboatqa/redis:6

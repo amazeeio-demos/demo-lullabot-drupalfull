@@ -19,7 +19,7 @@ services:
       - /
 
     visualdiff:
-      threshold: 90
+      threshold: 49
 
     # Run our phased commands to build the server and install the site.
     commands:

@@ -14,6 +14,13 @@ services:
     # Ensure we have our database loaded first.
     depends: database
 
+    # Run visual diff and lighthouse checks on these URLs.
+    urls:
+      - /
+
+    visualdiff:
+      threshold: 90
+
     # Run our phased commands to build the server and install the site.
     commands:
       # The INIT phase is for initializing the server itself.
@@ -116,8 +123,7 @@ services:
       # The UPDATE phase downloads and installs databases, assets, libraries, and dependencies.
       update:
         # Fetch the database from Lagoon and import it.
-        # @TODO: Change this to rsync a pre-dumped file so we're not dumping the database on every build.
-        - lagoon-sync sync mariadb -e "${LAGOON_ENV}" --skip-target-cleanup=true --skip-target-import=true --no-interaction
+        - lagoon-sync sync mariadb -e main --skip-target-cleanup=true --skip-target-import=true --no-interaction
         - zcat /tmp/lagoon_sync_mariadb_*.sql.gz | mysql tugboat
         - rm /tmp/lagoon_sync_mariadb_*.sql.gz
 

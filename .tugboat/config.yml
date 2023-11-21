@@ -96,10 +96,6 @@ services:
         - vendor/bin/drush -r "${DOCROOT}" config:set --yes stage_file_proxy.settings origin "https://nginx.main.demo-lullabot-drupalfull.us2.amazee.io"
         - vendor/bin/drush cache:rebuild
 
-    # Load up some visual diffs and lighthouse reports.
-    urls:
-      - /
-
   # Define our database service.
   database:
     #image: uselagoon/mariadb-10.6-drupal:latest

@@ -14,13 +14,6 @@ services:
     # Ensure we have our database loaded first.
     depends: database
 
-    # Run visual diff and lighthouse checks on these URLs.
-    urls:
-      - /
-
-    visualdiff:
-      threshold: 90
-
     # Run our phased commands to build the server and install the site.
     commands:
       # The INIT phase is for initializing the server itself.
@@ -95,6 +88,14 @@ services:
         - vendor/bin/drush -r "${DOCROOT}" pm-enable --yes stage_file_proxy
         - vendor/bin/drush -r "${DOCROOT}" config:set --yes stage_file_proxy.settings origin "https://nginx.main.demo-lullabot-drupalfull.us2.amazee.io"
         - vendor/bin/drush cache:rebuild
+
+    # Run visual diff and lighthouse checks on these URLs.
+    urls:
+      - /
+
+    visualdiff:
+      threshold: 49
+
 
   # Define our database service.
   database:

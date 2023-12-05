@@ -4,7 +4,7 @@ langcode: en
 uuid: dc5a8325-344e-4285-bf3e-e6ce42fee531
 name: 'Drush Site-Install'
 mail: admin@example.com
-slogan: ''
+slogan: 'Tugboat Loves Lagoon!'
 page:
   403: ''
   404: ''
